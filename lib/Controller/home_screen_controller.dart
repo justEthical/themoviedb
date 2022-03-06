@@ -7,8 +7,9 @@ import 'package:http/http.dart' as http;
 
 class HomeScreenController extends GetxController
     with GetSingleTickerProviderStateMixin {
-  List<MoviesData> movieList = [];
+  var movieList = [].obs;
   late TabController tabController;
+  var loading = false.obs;
 
   @override
   void onInit() {
@@ -22,6 +23,7 @@ class HomeScreenController extends GetxController
     // print("mockapi is called jljlk;k;k;kllllllllllllllllllllllll");
     var api =
         "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
+    loading.value = true;
 
     var response = await http.get(Uri.parse(api));
 
@@ -50,5 +52,6 @@ class HomeScreenController extends GetxController
         movieList.add(moviesData);
       }
     }
+    loading.value = false;
   }
 }
