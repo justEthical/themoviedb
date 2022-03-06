@@ -14,34 +14,54 @@ class MovieList extends StatelessWidget {
       child: ListView.builder(
           itemCount: c.movieList.length,
           itemBuilder: (ctx, i) {
-            return Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Row(
-                    children: [
-                      SizedBox(
-                          // width: 150,
-                          height: 120,
-                          child: Image.network(c.movieList[i].posterUrl!)),
-                      Container(
-                        margin: EdgeInsets.all(10),
-                        child: Column(
-                          children: [
-                            Text(c.movieList[i].title!, overflow: TextOverflow.fade,),
-                          
-                            // Text(c.movieList[i].description!, overflow: TextOverflow.fade,)
-                          ],
-                        ),
-                      )
-                    ],
+            return Container(
+              height: 170,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                            // width: 150,
+                            height: 149,
+                            child: Image.network(c.movieList[i].posterUrl!)),
+                        SizedBox(
+                          height: 149,
+                          width: 200,
+                          child: Column(
+                            // crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Text(
+                                c.movieList[i].title!,
+                                overflow: TextOverflow.fade,
+                                textAlign: TextAlign.start,
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 20,
+                                ),
+                              ),
+                              Expanded(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Text(
+                                c.movieList[i].description!,
+                                overflow: TextOverflow.fade,
+                              ),
+                                  ))
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-                const Divider(
-                  color: Colors.grey,
-                  height: 1,
-                )
-              ],
+                  const Divider(
+                    color: Colors.grey,
+                    height: 1,
+                  )
+                ],
+              ),
             );
           }),
     );
