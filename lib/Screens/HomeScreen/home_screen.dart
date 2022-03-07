@@ -9,7 +9,6 @@ class HomeScreen extends StatelessWidget {
   final HomeScreenController c = Get.put(HomeScreenController());
 
   TextEditingController searchQuery = TextEditingController();
-  
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +36,19 @@ class HomeScreen extends StatelessWidget {
               body: TabBarView(
                 controller: c.tabController,
                 children: [
-                Container(
-                  color: Colors.amber,
-                  child: MovieList(topRated: false,)),
-                Container(color: Colors.amber, child: MovieList(topRated: true,),)
-              ],),
+                  Container(
+                      color: Colors.amber,
+                      child: MovieList(
+                        topRated: false,
+                      )),
+                  Container(
+                    color: Colors.amber,
+                    child: MovieList(
+                      topRated: true,
+                    ),
+                  )
+                ],
+              ),
               bottomNavigationBar: Container(
                 width: MediaQuery.of(context).size.width,
                 height: 70,
@@ -55,7 +62,9 @@ class HomeScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  c.tabController.animateTo(0);
+                                },
                                 icon: Icon(Icons.movie, size: 35)),
                             Text(
                               "Now Playing",
@@ -71,7 +80,9 @@ class HomeScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             IconButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  c.tabController.animateTo(1);
+                                },
                                 icon: Icon(Icons.star, size: 35)),
                             Text(
                               "Top Rated",
