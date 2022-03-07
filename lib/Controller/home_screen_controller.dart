@@ -8,21 +8,25 @@ import 'package:http/http.dart' as http;
 class HomeScreenController extends GetxController
     with GetSingleTickerProviderStateMixin {
   var movieList = [].obs;
+  var topMovieList = [].obs;
   late TabController tabController;
   var loading = false.obs;
+  String nowPlaying =
+      "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
+  String topRated =
+      "https://api.themoviedb.org/3/movie/top_rated?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
 
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
     tabController = TabController(length: 2, vsync: this);
-    _mockApi();
+    _mockApi(nowPlaying);
+    _mockApi(topRated);
   }
 
-  _mockApi() async {
+  _mockApi(api) async {
     // print("mockapi is called jljlk;k;k;kllllllllllllllllllllllll");
-    var api =
-        "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
     loading.value = true;
 
     var response = await http.get(Uri.parse(api));
@@ -49,7 +53,11 @@ class HomeScreenController extends GetxController
             posterUrl: posterUrl,
             releaseDate: releaseDate,
             duration: duration);
-        movieList.add(moviesData);
+        if (api == topRated) {
+          topMovieList.add(moviesData);
+        } else {
+          movieList.add(moviesData);
+        }
       }
     }
     loading.value = false;

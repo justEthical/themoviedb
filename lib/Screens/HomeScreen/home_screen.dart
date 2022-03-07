@@ -39,8 +39,8 @@ class HomeScreen extends StatelessWidget {
                 children: [
                 Container(
                   color: Colors.amber,
-                  child: MovieList()),
-                Center(child: Text("tab2"),)
+                  child: MovieList(topRated: false,)),
+                Container(color: Colors.amber, child: MovieList(topRated: true,),)
               ],),
               bottomNavigationBar: Container(
                 width: MediaQuery.of(context).size.width,
