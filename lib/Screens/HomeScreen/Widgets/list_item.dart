@@ -11,7 +11,9 @@ class ListItem extends StatelessWidget {
     return SizedBox(
       height: 170,
       width: MediaQuery.of(context).size.width,
+      // column for movie detail and divider
       child: Column(
+        // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           GestureDetector(
             onTap: () {
@@ -23,8 +25,10 @@ class ListItem extends StatelessWidget {
               height: 169,
               width: MediaQuery.of(context).size.width,
               padding: const EdgeInsets.all(10.0),
+              // Row for poster and title, description
               child: Row(
                 children: [
+                  // Poster
                   SizedBox(
                       width: 100,
                       height: 149,
@@ -32,23 +36,29 @@ class ListItem extends StatelessWidget {
                         movie.posterUrl!,
                         fit: BoxFit.cover,
                       )),
+                  // Title and description
                   Container(
                     padding: const EdgeInsets.all(5),
                     height: 149,
                     width: MediaQuery.of(context).size.width - 140,
                     child: Column(
-                      // crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          movie.title!,
-                          overflow: TextOverflow.fade,
-                          textAlign: TextAlign.start,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
+                        // title
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Text(
+                            movie.title!,
+                            overflow: TextOverflow.fade,
+                            textAlign: TextAlign.start,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
                           ),
                         ),
+
+                        // decription
                         Expanded(
                             child: Padding(
                           padding: const EdgeInsets.all(5.0),
