@@ -24,8 +24,8 @@ class HomeScreenController extends GetxController
     // TODO: implement onInit
     super.onInit();
     tabController = TabController(length: 2, vsync: this);
-    _mockApi(nowPlaying);
-    _mockApi(topRated);
+    mockApi(nowPlaying);
+    mockApi(topRated);
   }
 
   performingSearch(str) {
@@ -36,7 +36,7 @@ class HomeScreenController extends GetxController
     }
   }
 
-  _mockApi(api) async {
+  Future<void> mockApi(api) async {
     // print("mockapi is called jljlk;k;k;kllllllllllllllllllllllll");
     loading.value = true;
 

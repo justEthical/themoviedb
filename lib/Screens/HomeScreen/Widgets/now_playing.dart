@@ -2,6 +2,7 @@ import 'package:brewapp/Controller/home_screen_controller.dart';
 import 'package:brewapp/Screens/HomeScreen/Widgets/list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 class MovieList extends StatelessWidget {
   final topRated;
@@ -23,12 +24,21 @@ class MovieList extends StatelessWidget {
         child: Obx(
           () => c.loading.value
               ? const Center(child: CircularProgressIndicator())
-              : ListView.builder(
-                  itemCount: c.nowPlayingMovieObsList.length,
-                  itemBuilder: (ctx, i) {
-                    var movie = c.nowPlayingMovieObsList[i];
-                    return ListItem(movie: movie,);
-                  }),
+              : LiquidPullToRefresh(
+                // backgroundColor: Colors.amber,
+                color: Colors.amber,
+                  onRefresh: () async {
+                    c.mockApi(c.nowPlaying);
+                  },
+                  child: ListView.builder(
+                      itemCount: c.nowPlayingMovieObsList.length,
+                      itemBuilder: (ctx, i) {
+                        var movie = c.nowPlayingMovieObsList[i];
+                        return ListItem(
+                          movie: movie,
+                        );
+                      }),
+                ),
         ));
   }
 
