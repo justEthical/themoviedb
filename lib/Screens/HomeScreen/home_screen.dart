@@ -1,5 +1,6 @@
 import 'package:brewapp/Controller/home_screen_controller.dart';
 import 'package:brewapp/Screens/HomeScreen/Widgets/now_playing.dart';
+import 'package:brewapp/Screens/HomeScreen/Widgets/search_box.dart';
 import 'package:brewapp/Screens/HomeScreen/Widgets/top_rated.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,7 +10,6 @@ class HomeScreen extends StatelessWidget {
 
   final HomeScreenController c = Get.put(HomeScreenController());
 
-  TextEditingController searchQuery = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class HomeScreen extends StatelessWidget {
           child: Scaffold(
               appBar: AppBar(
                 backgroundColor: Colors.amber,
-                title: _searchBox(),
+                title: SearchBox(),
                 actions: [
                   Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -100,40 +100,40 @@ class HomeScreen extends StatelessWidget {
         ));
   }
 
-  _searchBox() {
-    return Container(
-      height: 40,
-      margin: const EdgeInsets.only(left: 20),
-      decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(5)),
-      child: TextField(
-        onChanged: (str) {
-          c.performingSearch(str);
-          // c.search(str);
-          print(str);
-        },
-        controller: searchQuery,
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          prefixIcon: const Icon(
-            Icons.search,
-            size: 20,
-            color: Colors.black26,
-          ),
-          suffixIcon: GestureDetector(
-            onTap: () {
-              searchQuery.clear();
-              c.performingSearch("");
-            },
-            child: const Icon(
-              Icons.close,
-              size: 18,
-              color: Colors.black26,
-            ),
-          ),
-          hintText: "Search",
-        ),
-      ),
-    );
-  }
+  // _searchBox() {
+  //   return Container(
+  //     height: 40,
+  //     margin: const EdgeInsets.only(left: 20),
+  //     decoration: BoxDecoration(
+  //         color: Colors.white, borderRadius: BorderRadius.circular(5)),
+  //     child: TextField(
+  //       onChanged: (str) {
+  //         c.performingSearch(str);
+  //         // c.search(str);
+  //         print(str);
+  //       },
+  //       controller: searchQuery,
+  //       decoration: InputDecoration(
+  //         border: InputBorder.none,
+  //         prefixIcon: const Icon(
+  //           Icons.search,
+  //           size: 20,
+  //           color: Colors.black26,
+  //         ),
+  //         suffixIcon: GestureDetector(
+  //           onTap: () {
+  //             searchQuery.clear();
+  //             c.performingSearch("");
+  //           },
+  //           child: const Icon(
+  //             Icons.close,
+  //             size: 18,
+  //             color: Colors.black26,
+  //           ),
+  //         ),
+  //         hintText: "Search",
+  //       ),
+  //     ),
+  //   );
+  // }
 }
