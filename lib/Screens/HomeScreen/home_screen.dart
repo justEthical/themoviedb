@@ -46,10 +46,9 @@ class HomeScreen extends StatelessWidget {
                   Container(
                     color: Colors.amber,
                     child: TopRated(),
-                      // topRated: true,
-                      // movieList: c.topRatedMovieObsList,
-                    ),
-                  
+                    // topRated: true,
+                    // movieList: c.topRatedMovieObsList,
+                  ),
                 ],
               ),
               bottomNavigationBar: Container(
@@ -109,7 +108,12 @@ class HomeScreen extends StatelessWidget {
           color: Colors.white, borderRadius: BorderRadius.circular(5)),
       child: TextField(
         onChanged: (str) {
-          c.search(str);
+          if (c.tabController.index == 0) {
+            c.nowPlayingSearch(str);
+          } else {
+            c.topRatedSearch(str);
+          }
+          // c.search(str);
           print(str);
         },
         controller: searchQuery,

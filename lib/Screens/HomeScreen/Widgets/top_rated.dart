@@ -19,7 +19,7 @@ class TopRated extends StatelessWidget {
                   itemCount: c.topRatedMovieObsList.length,
                   itemBuilder: (ctx, i) {
                     var movie = c.topRatedMovieObsList[i];
-                    print(movie.title);
+                    // print(movie.title);
                     return ListItem(
                       movie: movie,
                     );

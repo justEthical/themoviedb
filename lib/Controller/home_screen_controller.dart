@@ -68,8 +68,49 @@ class HomeScreenController extends GetxController
     loading.value = false;
   }
 
+  topRatedSearch(query) {
+    var movieList = topRatedMovieList;
+    print(topRatedMovieObsList.length);
+    topRatedMovieObsList.clear();
+    final suggestions = movieList
+        .where((p0) {
+          final movieTitle = p0.title.toLowerCase();
+          final input = query.toLowerCase();
+
+          return movieTitle.contains(input);
+        })
+        .toList()
+        .obs;
+    // print(suggestions.length);
+
+    topRatedMovieObsList = suggestions;
+    print(nowPlayingMovieObsList.length);
+    print("this is top rated");
+  }
+
+  nowPlayingSearch(query) {
+    var movieList = nowPlayingMovieList;
+    print(nowPlayingMovieObsList.length);
+    nowPlayingMovieObsList.clear();
+    final suggestions = movieList
+        .where((p0) {
+          final movieTitle = p0.title.toLowerCase();
+          final input = query.toLowerCase();
+
+          return movieTitle.contains(input);
+        })
+        .toList()
+        .obs;
+    // print(suggestions.length);
+
+    nowPlayingMovieObsList = suggestions;
+    print(nowPlayingMovieObsList.length);
+    print("this is now playing");
+  }
+
   void search(
     String query,
+
   ) {
     // var movieList =
     //     tabController.index == 0 ? nowPlayingMovieList : topRatedMovieList;
