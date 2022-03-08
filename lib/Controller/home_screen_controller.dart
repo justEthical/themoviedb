@@ -19,6 +19,8 @@ class HomeScreenController extends GetxController
   String topRated =
       "https://api.themoviedb.org/3/movie/top_rated?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
 
+  var isSearching = false.obs;
+  
   @override
   void onInit() {
     // TODO: implement onInit
@@ -123,7 +125,5 @@ class HomeScreenController extends GetxController
         .obs;
 
     nowPlayingMovieObsList = suggestions;
-
   }
-
 }

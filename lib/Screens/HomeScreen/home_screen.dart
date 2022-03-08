@@ -19,19 +19,13 @@ class HomeScreen extends StatelessWidget {
           child: Scaffold(
               appBar: AppBar(
                 backgroundColor: Colors.amber,
-                title: SearchBox(),
+                title: Obx(() => Container(
+                    child: c.isSearching.value
+                        ? SearchBox()
+                        : _staticSearchBox())), //SearchBox(),
                 actions: [
                   // Cancel button
-                  Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: GestureDetector(
-                        child: const Center(
-                            child: Text(
-                          "CANCEL",
-                          style: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.bold),
-                        )),
-                      ))
+                  Obx(() => _cancelButton())
                 ],
                 elevation: 2,
               ),
@@ -57,5 +51,46 @@ class HomeScreen extends StatelessWidget {
         ));
   }
 
-  
+  Widget _staticSearchBox() {
+    return Center(
+      child: GestureDetector(
+        onTap: () {
+          c.isSearching.value = true;
+        },
+        child: Container(
+          height: 40,
+          margin: const EdgeInsets.only(left: 20, right: 20),
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(5)),
+          child: const Center(
+              child: Text(
+            "search",
+            style: TextStyle(color: Colors.grey),
+          )),
+        ),
+      ),
+    );
+  }
+
+  Widget _cancelButton() {
+    return Container(
+      child: c.isSearching.value
+          ? Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: GestureDetector(
+                onTap: () {
+                  c.isSearching.value = false;
+                },
+                child: const Center(
+                    child: Text(
+                  "CANCEL",
+                  style: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold),
+                )),
+              ))
+          : Container(),
+    );
+  }
+
+
 }
