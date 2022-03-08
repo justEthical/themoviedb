@@ -108,11 +108,7 @@ class HomeScreen extends StatelessWidget {
           color: Colors.white, borderRadius: BorderRadius.circular(5)),
       child: TextField(
         onChanged: (str) {
-          if (c.tabController.index == 0) {
-            c.nowPlayingSearch(str);
-          } else {
-            c.topRatedSearch(str);
-          }
+          c.performingSearch(str);
           // c.search(str);
           print(str);
         },
@@ -127,6 +123,7 @@ class HomeScreen extends StatelessWidget {
           suffixIcon: GestureDetector(
             onTap: () {
               searchQuery.clear();
+              c.performingSearch("");
             },
             child: const Icon(
               Icons.close,

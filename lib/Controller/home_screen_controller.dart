@@ -28,6 +28,14 @@ class HomeScreenController extends GetxController
     _mockApi(topRated);
   }
 
+  performingSearch(str) {
+    if (tabController.index == 0) {
+      nowPlayingSearch(str);
+    } else {
+      topRatedSearch(str);
+    }
+  }
+
   _mockApi(api) async {
     // print("mockapi is called jljlk;k;k;kllllllllllllllllllllllll");
     loading.value = true;
@@ -110,7 +118,6 @@ class HomeScreenController extends GetxController
 
   void search(
     String query,
-
   ) {
     // var movieList =
     //     tabController.index == 0 ? nowPlayingMovieList : topRatedMovieList;
