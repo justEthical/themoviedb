@@ -28,7 +28,8 @@ class HomeScreenController extends GetxController
     mockApi(topRated);
   }
 
-  performingSearch(str) {
+  // checking for current tab
+  void performingSearch(str) {
     if (tabController.index == 0) {
       nowPlayingSearch(str);
     } else {
@@ -36,8 +37,15 @@ class HomeScreenController extends GetxController
     }
   }
 
+  // Calling api
   Future<void> mockApi(api) async {
-    // print("mockapi is called jljlk;k;k;kllllllllllllllllllllllll");
+    if (api == topRated) {
+      topRatedMovieList.clear();
+      topRatedMovieObsList.clear();
+    } else {
+      nowPlayingMovieList.clear();
+      nowPlayingMovieObsList.clear();
+    }
     loading.value = true;
 
     var response = await http.get(Uri.parse(api));
@@ -49,21 +57,8 @@ class HomeScreenController extends GetxController
       var movies = body["results"];
 
       for (var movie in movies) {
-        var title = movie["original_title"];
-        var description = movie["overview"];
-        var averageRating = movie["vote_average"];
-        var posterUrl =
-            "https://image.tmdb.org/t/p/w342" + movie["poster_path"];
-        var releaseDate = movie["release_date"];
-        var duration = "2hr 30mins";
+        var moviesData = _jsonToMovieObject(movie);
 
-        var moviesData = MoviesData(
-            title: title,
-            description: description,
-            averageRating: averageRating,
-            posterUrl: posterUrl,
-            releaseDate: releaseDate,
-            duration: duration);
         if (api == topRated) {
           topRatedMovieList.add(moviesData);
           topRatedMovieObsList.add(moviesData);
@@ -72,13 +67,34 @@ class HomeScreenController extends GetxController
           nowPlayingMovieObsList.add(moviesData);
         }
       }
+    } else {
+      print("Something went wrong");
     }
     loading.value = false;
   }
 
-  topRatedSearch(query) {
+  // converting json data to movie object
+  MoviesData _jsonToMovieObject(movie) {
+    var title = movie["original_title"];
+    var description = movie["overview"];
+    var averageRating = movie["vote_average"];
+    var posterUrl = "https://image.tmdb.org/t/p/w342" + movie["poster_path"];
+    var releaseDate = movie["release_date"];
+    var duration = "2hr 30mins";
+
+    var moviesData = MoviesData(
+        title: title,
+        description: description,
+        averageRating: averageRating,
+        posterUrl: posterUrl,
+        releaseDate: releaseDate,
+        duration: duration);
+    return moviesData;
+  }
+
+  // fuction for performing search in topRated Tab
+  void topRatedSearch(query) {
     var movieList = topRatedMovieList;
-    print(topRatedMovieObsList.length);
     topRatedMovieObsList.clear();
     final suggestions = movieList
         .where((p0) {
@@ -89,16 +105,12 @@ class HomeScreenController extends GetxController
         })
         .toList()
         .obs;
-    // print(suggestions.length);
-
     topRatedMovieObsList = suggestions;
-    print(nowPlayingMovieObsList.length);
-    print("this is top rated");
   }
 
-  nowPlayingSearch(query) {
+  // Function for performing search in now playing Tab
+  void nowPlayingSearch(query) {
     var movieList = nowPlayingMovieList;
-    print(nowPlayingMovieObsList.length);
     nowPlayingMovieObsList.clear();
     final suggestions = movieList
         .where((p0) {
@@ -109,33 +121,9 @@ class HomeScreenController extends GetxController
         })
         .toList()
         .obs;
-    // print(suggestions.length);
 
     nowPlayingMovieObsList = suggestions;
-    print(nowPlayingMovieObsList.length);
-    print("this is now playing");
+
   }
 
-  void search(
-    String query,
-  ) {
-    // var movieList =
-    //     tabController.index == 0 ? nowPlayingMovieList : topRatedMovieList;
-    var movieList = nowPlayingMovieList;
-    print(nowPlayingMovieObsList.length);
-    nowPlayingMovieObsList.clear();
-    final suggestions = movieList
-        .where((p0) {
-          final movieTitle = p0.title.toLowerCase();
-          final input = query.toLowerCase();
-
-          return movieTitle.contains(input);
-        })
-        .toList()
-        .obs;
-    // print(suggestions.length);
-
-    nowPlayingMovieObsList = suggestions;
-    print(nowPlayingMovieObsList.length);
-  }
 }
