@@ -1,38 +1,11 @@
-import 'package:brewapp/Controller/home_screen_controller.dart';
-import 'package:brewapp/Screens/HomeScreen/Widgets/list_item.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-class MovieList extends StatelessWidget {
-  final topRated;
-  final movieList;
-  MovieList({Key? key, this.topRated, this.movieList})
-      : super(
-          key: key,
-        );
-
-  final HomeScreenController c = Get.find<HomeScreenController>();
+class ListItem extends StatelessWidget {
+  final movie;
+   ListItem({Key? key, this.movie}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // var movieList = c.tabController.index == 0
-    //     ? c.nowPlayingMovieObsList
-    //     : c.topRatedMovieObsList;
-    return Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10),
-        child: Obx(
-          () => c.loading.value
-              ? const Center(child: CircularProgressIndicator())
-              : ListView.builder(
-                  itemCount: c.nowPlayingMovieObsList.length,
-                  itemBuilder: (ctx, i) {
-                    var movie = c.nowPlayingMovieObsList[i];
-                    return ListItem(movie: movie,);
-                  }),
-        ));
-  }
-
-  _listItem(movie, context) {
     return SizedBox(
       height: 170,
       width: MediaQuery.of(context).size.width,

@@ -1,5 +1,6 @@
 import 'package:brewapp/Controller/home_screen_controller.dart';
 import 'package:brewapp/Screens/HomeScreen/Widgets/now_playing.dart';
+import 'package:brewapp/Screens/HomeScreen/Widgets/top_rated.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -40,13 +41,15 @@ class HomeScreen extends StatelessWidget {
                       color: Colors.amber,
                       child: MovieList(
                         topRated: false,
+                        // movieList: c.nowPlayingMovieObsList,
                       )),
                   Container(
                     color: Colors.amber,
-                    child: MovieList(
-                      topRated: true,
+                    child: TopRated(),
+                      // topRated: true,
+                      // movieList: c.topRatedMovieObsList,
                     ),
-                  )
+                  
                 ],
               ),
               bottomNavigationBar: Container(
@@ -105,6 +108,10 @@ class HomeScreen extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(5)),
       child: TextField(
+        onChanged: (str) {
+          c.search(str);
+          print(str);
+        },
         controller: searchQuery,
         decoration: InputDecoration(
           border: InputBorder.none,
