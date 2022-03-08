@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 class ListItem extends StatelessWidget {
   final movie;
-  ListItem({Key? key, this.movie}) : super(key: key);
+  const ListItem({Key? key, this.movie}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +74,7 @@ class ListItem extends StatelessWidget {
               ),
             ),
           ),
+          // devider
           const Divider(
             color: Colors.grey,
             height: 1,
