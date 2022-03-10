@@ -14,13 +14,14 @@ class HomeScreenController extends GetxController
   var nowPlayingMovieObsList = [].obs;
   var topRatedMovieObsList = [].obs;
   var loading = false.obs;
+
   String nowPlaying =
       "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
   String topRated =
       "https://api.themoviedb.org/3/movie/top_rated?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed";
 
   var isSearching = false.obs;
-  
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -28,6 +29,17 @@ class HomeScreenController extends GetxController
     tabController = TabController(length: 2, vsync: this);
     mockApi(nowPlaying);
     mockApi(topRated);
+  }
+
+  // Delete Item in list
+  void deleteItem(itemIndex) {
+    if (tabController.index == 0) {
+      nowPlayingMovieList.remove(itemIndex);
+      nowPlayingMovieObsList.remove(itemIndex);
+    } else {
+      topRatedMovieList.remove(itemIndex);
+      topRatedMovieObsList.remove(itemIndex);
+    }
   }
 
   // checking for current tab

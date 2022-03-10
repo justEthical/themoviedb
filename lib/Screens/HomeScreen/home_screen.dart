@@ -30,6 +30,7 @@ class HomeScreen extends StatelessWidget {
                 elevation: 2,
               ),
               body: TabBarView(
+                physics: const NeverScrollableScrollPhysics(),
                 controller: c.tabController,
                 children: [
                   // Now Playing Movie tab
